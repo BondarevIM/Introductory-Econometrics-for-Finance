@@ -1,0 +1,511 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "4d89dad1-71c5-438d-8839-55f1fa5b3175",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:26:41.573190Z",
+     "iopub.status.busy": "2026-04-08T08:26:41.573190Z",
+     "iopub.status.idle": "2026-04-08T08:26:42.538460Z",
+     "shell.execute_reply": "2026-04-08T08:26:42.538460Z",
+     "shell.execute_reply.started": "2026-04-08T08:26:41.573190Z"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import pandas as pd\n",
+    "\n",
+    "from statsmodels.formula.api import ols"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "4a6492b0-369f-42bf-988a-09e8e51101ec",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:30:26.645223Z",
+     "iopub.status.busy": "2026-04-08T08:30:26.645223Z",
+     "iopub.status.idle": "2026-04-08T08:30:26.659124Z",
+     "shell.execute_reply": "2026-04-08T08:30:26.659124Z",
+     "shell.execute_reply.started": "2026-04-08T08:30:26.645223Z"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# import the dataset\n",
+    "\n",
+    "survey_data = pd.read_csv('dataSurvey.csv')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "7619178c-fb9c-4c9b-8cf9-3d9dbf71e867",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:30:37.219246Z",
+     "iopub.status.busy": "2026-04-08T08:30:37.219246Z",
+     "iopub.status.idle": "2026-04-08T08:30:37.236552Z",
+     "shell.execute_reply": "2026-04-08T08:30:37.236552Z",
+     "shell.execute_reply.started": "2026-04-08T08:30:37.219246Z"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Rating</th>\n",
+       "      <th>attendance</th>\n",
+       "      <th>avg_test_score</th>\n",
+       "      <th>sleep_hours</th>\n",
+       "      <th>Unnamed: 4</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>65</td>\n",
+       "      <td>50</td>\n",
+       "      <td>70</td>\n",
+       "      <td>6</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>93</td>\n",
+       "      <td>95</td>\n",
+       "      <td>90</td>\n",
+       "      <td>8</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>5</td>\n",
+       "      <td>6</td>\n",
+       "      <td>7</td>\n",
+       "      <td>8</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>92</td>\n",
+       "      <td>80</td>\n",
+       "      <td>90</td>\n",
+       "      <td>6</td>\n",
+       "      <td></td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>90</td>\n",
+       "      <td>85</td>\n",
+       "      <td>90</td>\n",
+       "      <td>6</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>95</td>\n",
+       "      <td>95</td>\n",
+       "      <td>90</td>\n",
+       "      <td>9</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>90</td>\n",
+       "      <td>70</td>\n",
+       "      <td>89</td>\n",
+       "      <td>5</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>91</td>\n",
+       "      <td>90</td>\n",
+       "      <td>92</td>\n",
+       "      <td>8</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>98</td>\n",
+       "      <td>95</td>\n",
+       "      <td>95</td>\n",
+       "      <td>3</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>94</td>\n",
+       "      <td>80</td>\n",
+       "      <td>94</td>\n",
+       "      <td>2</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>94</td>\n",
+       "      <td>100</td>\n",
+       "      <td>96</td>\n",
+       "      <td>7</td>\n",
+       "      <td></td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>90</td>\n",
+       "      <td>60</td>\n",
+       "      <td>90</td>\n",
+       "      <td>5</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>5</td>\n",
+       "      <td>90</td>\n",
+       "      <td>87</td>\n",
+       "      <td>6</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>13</th>\n",
+       "      <td>92</td>\n",
+       "      <td>85</td>\n",
+       "      <td>90</td>\n",
+       "      <td>6</td>\n",
+       "      <td>NaN</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    Rating  attendance  avg_test_score  sleep_hours Unnamed: 4\n",
+       "0       65          50              70            6        NaN\n",
+       "1       93          95              90            8        NaN\n",
+       "2        5           6               7            8        NaN\n",
+       "3       92          80              90            6           \n",
+       "4       90          85              90            6        NaN\n",
+       "5       95          95              90            9        NaN\n",
+       "6       90          70              89            5        NaN\n",
+       "7       91          90              92            8        NaN\n",
+       "8       98          95              95            3        NaN\n",
+       "9       94          80              94            2        NaN\n",
+       "10      94         100              96            7           \n",
+       "11      90          60              90            5        NaN\n",
+       "12       5          90              87            6        NaN\n",
+       "13      92          85              90            6        NaN"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "survey_data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "5abbd337-f6f2-4a76-a44f-e9a4791fd2b2",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:33:17.071689Z",
+     "iopub.status.busy": "2026-04-08T08:33:17.071689Z",
+     "iopub.status.idle": "2026-04-08T08:33:17.075974Z",
+     "shell.execute_reply": "2026-04-08T08:33:17.075974Z",
+     "shell.execute_reply.started": "2026-04-08T08:33:17.071689Z"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "survey_data = survey_data.drop(columns='Unnamed: 4')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "a771de0e-785c-406e-8f77-43b12da23d9c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:33:21.861888Z",
+     "iopub.status.busy": "2026-04-08T08:33:21.860887Z",
+     "iopub.status.idle": "2026-04-08T08:33:21.872109Z",
+     "shell.execute_reply": "2026-04-08T08:33:21.871102Z",
+     "shell.execute_reply.started": "2026-04-08T08:33:21.861888Z"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>Rating</th>\n",
+       "      <th>attendance</th>\n",
+       "      <th>avg_test_score</th>\n",
+       "      <th>sleep_hours</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>65</td>\n",
+       "      <td>50</td>\n",
+       "      <td>70</td>\n",
+       "      <td>6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>93</td>\n",
+       "      <td>95</td>\n",
+       "      <td>90</td>\n",
+       "      <td>8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>5</td>\n",
+       "      <td>6</td>\n",
+       "      <td>7</td>\n",
+       "      <td>8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>92</td>\n",
+       "      <td>80</td>\n",
+       "      <td>90</td>\n",
+       "      <td>6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>90</td>\n",
+       "      <td>85</td>\n",
+       "      <td>90</td>\n",
+       "      <td>6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>5</th>\n",
+       "      <td>95</td>\n",
+       "      <td>95</td>\n",
+       "      <td>90</td>\n",
+       "      <td>9</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>6</th>\n",
+       "      <td>90</td>\n",
+       "      <td>70</td>\n",
+       "      <td>89</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>7</th>\n",
+       "      <td>91</td>\n",
+       "      <td>90</td>\n",
+       "      <td>92</td>\n",
+       "      <td>8</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>98</td>\n",
+       "      <td>95</td>\n",
+       "      <td>95</td>\n",
+       "      <td>3</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>94</td>\n",
+       "      <td>80</td>\n",
+       "      <td>94</td>\n",
+       "      <td>2</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>94</td>\n",
+       "      <td>100</td>\n",
+       "      <td>96</td>\n",
+       "      <td>7</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>90</td>\n",
+       "      <td>60</td>\n",
+       "      <td>90</td>\n",
+       "      <td>5</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>5</td>\n",
+       "      <td>90</td>\n",
+       "      <td>87</td>\n",
+       "      <td>6</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>13</th>\n",
+       "      <td>92</td>\n",
+       "      <td>85</td>\n",
+       "      <td>90</td>\n",
+       "      <td>6</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "    Rating  attendance  avg_test_score  sleep_hours\n",
+       "0       65          50              70            6\n",
+       "1       93          95              90            8\n",
+       "2        5           6               7            8\n",
+       "3       92          80              90            6\n",
+       "4       90          85              90            6\n",
+       "5       95          95              90            9\n",
+       "6       90          70              89            5\n",
+       "7       91          90              92            8\n",
+       "8       98          95              95            3\n",
+       "9       94          80              94            2\n",
+       "10      94         100              96            7\n",
+       "11      90          60              90            5\n",
+       "12       5          90              87            6\n",
+       "13      92          85              90            6"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "survey_data"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "7651a203-ac40-4355-8d91-5cacf7676744",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:49:54.779309Z",
+     "iopub.status.busy": "2026-04-08T08:49:54.778307Z",
+     "iopub.status.idle": "2026-04-08T08:49:54.805831Z",
+     "shell.execute_reply": "2026-04-08T08:49:54.805831Z",
+     "shell.execute_reply.started": "2026-04-08T08:49:54.779309Z"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# specify the regression with OLS\n",
+    "\n",
+    "model_for_survey = ols(formula='Rating~attendance+avg_test_score+sleep_hours', data=survey_data).fit()"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "c79a5896-8d1c-402c-aa36-91c4873f5b6e",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2026-04-08T08:49:57.603606Z",
+     "iopub.status.busy": "2026-04-08T08:49:57.602602Z",
+     "iopub.status.idle": "2026-04-08T08:49:57.614908Z",
+     "shell.execute_reply": "2026-04-08T08:49:57.613899Z",
+     "shell.execute_reply.started": "2026-04-08T08:49:57.603606Z"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "Intercept        -24.907255\n",
+       "attendance        -0.592227\n",
+       "avg_test_score     1.637518\n",
+       "sleep_hours        1.964732\n",
+       "dtype: float64"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "model_for_survey.params"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "id": "9c5c53c2-10b3-49c8-b7ea-f51f66f80fe1",
+   "metadata": {},
+   "source": [
+    "# **OUR REGRESSION**\n",
+    "\n",
+    "## **Rating** = -24.907255 + (-0.592227)\\***attendance** + 1.637518\\***avg_test_score** + 1.964732\\***sleep_hours**"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python [conda env:courses]",
+   "language": "python",
+   "name": "conda-env-courses-py"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.13"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
