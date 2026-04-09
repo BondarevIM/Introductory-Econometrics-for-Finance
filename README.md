@@ -1,5 +1,6 @@
 # Introductory-Econometrics-for-Finance
-## **Datasets Link:**
+## **Datasets Links:**
+### https://lms3.mgimo.ru/mod/folder/view.php?id=11651
 ### https://github.com/artamonoff/econometrica/tree/main/econometrica-1/datasets
 
 ## **Seminar 1**
