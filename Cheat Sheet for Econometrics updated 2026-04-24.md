@@ -1,5 +1,7 @@
 # Cheat Sheet for Data Analysis #8: Regression Analysis & Prediction with OLS
 
+## If you don't find something you need here, please check: https://lms3.mgimo.ru/mod/page/view.php?id=11555
+
 ## Basic Setup and Model Building
 Import essential libraries
 ```python
@@ -11,7 +13,7 @@ warnings.simplefilter(action='ignore', category=Warning)
 ```
 **Meaning:** Imports necessary libraries for data manipulation and Ordinary Least Squares (OLS) regression. `warnings` suppression keeps output clean.
 
-Load and InsData
+Load and Inspect Data
 ```python
 # Load dataset
 df = pd.read_csv('dataset.csv')
@@ -49,11 +51,6 @@ View Model Summary
 ```python
 model.summary()
 ```
-**Meaning:** Displays detailed statistical results, including:
-- **R-squared**: Proportion of variance in $Y$ explained by $X$s.
-- **Coefficients (coef)**: The estimated impact of each $X$ on $Y$.
-- **P-values (P > |t|)**: Statistical significance of each coefficient (typically < 0.05 is significant).
-- **F-statistic**: Overall significance of the model.
 
 Extract Coefficients
 ```python
@@ -66,26 +63,16 @@ print(params.round(3))
 **Meaning:** Isolates the intercept and slope coefficients for manual calculation or prediction.
 
 ## Working with Transformations in Formulas
-Logarithmic Transformations
+
 ```python
-# Log of dependent variable
-model_log_y = ols('np.log(wage) ~ exper + female', data=df).fit()
-
-# Log of independent variables
-model_log_x = ols('np.log(output) ~ np.log(capital) + np.log(labour)', data=df).fit()
+# To add log(X) use
+np.log(x)
 ```
-**Meaning:**
-- `np.log(y)`: Useful when percentage changes in $X$ affect absolute changes in $Y$, or to normalize skewed data.
-- `np.log(x)`: Useful for elasticity calculations (percentage change in $X$ leads to percentage change in $Y$).
-
-Polynomial Terms (Non-Linear Relationships)
 ```python
-# Include squared term for experience (diminishing returns)
-# Use I() to perform arithmetic inside the formula
-model_poly = ols('wage ~ exper + I(exper**2) + educ', data=df).fit()
+# To add X^2 use
+x^2 = np.square(x)
 ```
-**Meaning:** `I(exper**2)` tells the formula parser to treat `exper**2` as a mathematical operation rather than a variable name interaction. This captures curvilinear relationships.
-
-- Variable names in the formula must exactly match column names in the DataFrame.
-
-Remember: Correlation does not imply causation. OLS identifies associations based on the provided data. Always consider omitted variable bias and the theoretical basis for your model specification.
+```python
+# To get the exponent of X use
+np.exp(x)
+```
