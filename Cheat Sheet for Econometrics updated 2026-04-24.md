@@ -1,8 +1,8 @@
-# Cheat Sheet for Data Analysis #8: Regression Analysis & Prediction with OLS
+# Cheat Sheet for Econometrics
 
 ## If you don't find something you need here, please check: https://lms3.mgimo.ru/mod/page/view.php?id=11555
 
-## Basic Setup and Model Building
+## Basic Setup and OLS Model Building
 Import essential libraries
 ```python
 import numpy as np
