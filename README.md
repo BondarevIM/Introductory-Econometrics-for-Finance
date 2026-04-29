@@ -12,3 +12,6 @@
 
 ## **Seminar 2**
 ### **Homework 2:** https://lms3.mgimo.ru/mod/quiz/view.php?id=11836
+
+## **Seminar 3**
+### **Homework 3:** https://lms3.mgimo.ru/mod/quiz/view.php?id=11601
