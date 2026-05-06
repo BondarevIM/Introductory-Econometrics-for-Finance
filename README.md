@@ -15,3 +15,7 @@
 
 ## **Seminar 3**
 ### **Homework 3:** https://lms3.mgimo.ru/mod/quiz/view.php?id=11601
+
+## **Seminar 4**
+### **Additional Jupyter Notebook with explanation:** https://github.com/artamonoff/econometrica/blob/main/econometrica-1/jupyter-notebooks/t-test-general.ipynb
+### **Homework 4:**
