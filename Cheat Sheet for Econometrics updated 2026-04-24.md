@@ -70,7 +70,9 @@ np.log(x)
 ```
 ```python
 # To add X^2 use
-x^2 = np.square(x)
+np.square(x)
+# OR
+I(x**2)
 ```
 ```python
 # To get the exponent of X use
