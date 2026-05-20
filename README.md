@@ -23,3 +23,6 @@
 ### **Additional Jupyter Notebook with explanation:** https://github.com/artamonoff/econometrica/blob/main/econometrica-1/jupyter-notebooks/t-test-general.ipynb
 ### **Tasks:** https://github.com/artamonoff/econometrica/blob/main/econometrica-1/exercises/list06-t-test.pdf
 ### **Homework 4:** https://lms3.mgimo.ru/mod/quiz/view.php?id=11602
+
+## **Seminar 6**
+### **Homework 5:** https://lms3.mgimo.ru/mod/quiz/view.php?id=11603
